@@ -1,0 +1,5 @@
+input_folder
+__pycache__
+test_input
+config.py
+reqs.txt

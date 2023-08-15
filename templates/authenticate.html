@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Authenticate</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='authenticate.css') }}">
+    </head>
+    <body>
+        <form action="/authenticate" method="post">
+            <input name="password" placeholder="Please enter the password." type="password" required>
+            <input name="redirect_url" type="hidden" value="{{ redirect_url }}">
+            <input type="submit" value="Submit">
+            {% if failed %}
+                <p class="error-message">The password you entered was not correct.</p>
+            {% endif %}
+        </form> 
+    </body>
+</html>

@@ -1,0 +1,8 @@
+#!/bin/bash -i
+
+conda activate CellTracker
+
+# cd ~/Documents/Projects/CellTracker
+
+screen -dmS cell_tracker_app bash -c "gunicorn --workers 3 --reload app:app"
+screen -dmS cell_tracker_processor bash -c "python processor.py"

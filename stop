@@ -1,0 +1,2 @@
+screen -S cell_tracker_app -X kill
+screen -S cell_tracker_processor -X kill

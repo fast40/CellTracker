@@ -1,0 +1,148 @@
+.hidden {
+    display: none !important;
+}
+
+.experiment {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+    background-color: rgb(255, 255, 255);
+    padding: 0 0.75rem;
+    border-radius: 0.25rem;
+}
+
+.experiment p {
+    font-weight: bold;
+}
+
+.experiment input {
+    width: 1.5rem;
+    border-radius: 0;
+}
+
+.status {
+    --status-0-color: rgb(255, 0, 0);
+    --status-1-color: rgb(255, 120, 0);
+    --status-2-color: rgb(255, 200, 0);
+    --status-3-color: rgb(0, 200, 0);
+
+    --status-0-message: "waiting in queue";
+    --status-1-message: "detecting cells";
+    --status-2-message: "tracking cells";
+    --status-3-message: "done";
+
+    font-size: 0.75rem;
+    font-weight: bold;
+    font-family: monospace;
+    padding: 0 0.5em;
+    border-width: 0.125rem;
+    border-radius: 1em;
+    border-style: solid;
+}
+
+.status-0 {
+    color: var(--status-0-color);
+    border-color: var(--status-0-color);
+}
+
+.status-0::after {
+    content: var(--status-0-message);
+}
+
+.status-1 {
+    color: var(--status-1-color);
+    border-color: var(--status-1-color);
+}
+
+.status-1::after {
+    content: var(--status-1-message);
+}
+
+.status-2 {
+    color: var(--status-2-color);
+    border-color: var(--status-2-color);
+}
+
+.status-2::after {
+    content: var(--status-2-message);
+}
+
+.status-3 {
+    color: var(--status-3-color);
+    border-color: var(--status-3-color);
+}
+
+.status-3::after {
+    content: var(--status-3-message);
+}
+
+
+
+*:not(ul) {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+
+
+    --action-color: rgb(0, 100, 255);
+    --error-color: rgb(255, 0, 0);
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 100vh;
+    background-color: rgb(200, 200, 200);
+    padding: 1rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+form .button-container {
+    display: flex;
+    gap: 0.5rem;
+}
+
+input, button {
+    width: 100%;
+    height: 3rem;
+    font-size: 1rem;
+    outline: none;
+    padding: 0 0.75rem;
+    line-height: 3rem;
+    background-color: rgb(255, 255, 255);
+    border-radius: 0.25rem;
+}
+
+input[type=submit], button {
+    border: none;
+    background-color: var(--action-color);
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+}
+
+input[type=submit], button, input[type=file] {
+    cursor: pointer;
+}
+
+.error-message {
+    color: var(--error-color);
+}
+
+body > div {
+    width: 100%;
+}
+
+h1 {
+    margin-top: 1rem;
+    width: 100%;
+}

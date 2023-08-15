@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Cell Tracker</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+        <div>
+            <h1 class="no-margin">How to upload experiments</h1>
+            <ul>
+                <li>Gather all of your images in a single folder.</li>
+                <li>Make sure each filename starts with some experiment identifier and ends with "-before" or "-after" and then the filename.
+                    <ul>
+                        <li>Good examples: "experiment-1-before.png", "001-after.png"</li>
+                        <li>Note that there should be exactly two images for each experiment identifier.</li>
+                    </ul>
+                </li>
+                <li>Upload your folder, and this app will take care of the rest.</li>
+            </ul>
+        </div>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <input name="files" type="file" directory webkitdirectory multiple>
+            <input type="hidden" name="test" value="testval">
+            <input type="submit">
+        </form>
+        <form id="experiments" action="/" method="post">
+            <h1 id="in-progress-title">Experiments In Progress</h1>
+            <h1 id="completed-title">Completed Experiments</h1>
+            <div class="button-container">
+                <button name="action" value="download" formaction="/download">Download</button>
+                <button style="background-color: rgb(150, 0, 0);" name="action" value="delete" formaction="/delete">Delete</button>
+            </div>
+        </form>
+        <script src="{{ url_for('static', filename='updater.js') }}"></script>
+    </body>
+</html>
