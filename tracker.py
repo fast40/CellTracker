@@ -117,7 +117,9 @@ def get_track_information(spots):
     end_area = spots[-1].getFeature('RADIUS')
 
     distance_moved = np.sqrt((end_x - start_x) ** 2 + (end_y - start_y) ** 2)
-    slope = (end_y - start_y) / (end_x - start_x)
+
+    angle = get_angle(start_x, start_y, end_x, end_y)
+    # slope = (end_y - start_y) / (end_x - start_x)
 
     return {
         'start_x': start_x,
@@ -127,8 +129,17 @@ def get_track_information(spots):
         'start_area': start_area,
         'end_area': end_area,
         'distance_moved': distance_moved,
-        'slope': slope
+        'angle': angle
+        # 'slope': slope
     }
+
+
+def get_angle(start_x, start_y, end_x, end_y):
+    angle_radians = np.arctan2(end_y - start_y, end_x - start_x)
+    angle_degrees = (180 / np.pi) * angle_radians
+    angle_degrees = angle_degrees % 360
+
+    return angle_degrees
 
 
 def get_results(track_model):
@@ -147,7 +158,7 @@ def get_results(track_model):
             track_information['start_area'],
             track_information['end_area'],
             track_information['distance_moved'],
-            track_information['slope']
+            track_information['angle']
         ])
 
         results = np.vstack([results, track_information_numpy])  # append the current spot track to the results array
@@ -159,18 +170,18 @@ def make_csv(results, file_path):
     sorted_indices = np.argsort(np.abs(results[:, 7] - results[:, 7].mean()))
     results = results[sorted_indices]
 
-    std_in_slope = results[:, 7].std()
-    mean_slope = results[:, 7].mean()
+    std_in_angle = results[:, 7].std()
+    mean_angle = results[:, 7].mean()
 
     with open(file_path, 'w') as file:
         writer = csv.writer(file)
 
-        writer.writerow(['START X', 'START Y', 'END X', 'END Y', 'START AREA', 'END_AREA', 'DISTANCE MOVED', 'SLOPE', 'STANDARD DEVIATIONS AWAY FROM MEAN SLOPE'])
+        writer.writerow(['START X', 'START Y', 'END X', 'END Y', 'START AREA', 'END_AREA', 'DISTANCE MOVED', 'ANGLE', 'STANDARD DEVIATIONS AWAY FROM MEAN ANGLE'])
 
         for row in results:
-            writer.writerow([*row, np.abs(row[7] - mean_slope) / std_in_slope])
+            writer.writerow([*row, np.abs(row[7] - mean_angle) / std_in_angle])
     
-        writer.writerow(['STANDARD DEVIATION IN SLOPE:', std_in_slope])
+        writer.writerow(['STANDARD DEVIATION IN ANGLE:', std_in_angle])
 
 
 def make_visualization(masks, results, file_path):
