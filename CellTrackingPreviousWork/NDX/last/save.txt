@@ -1,0 +1,33 @@
+# Loop over each frame and add spots for each cell mask
+for frame in range(n_frames):
+    # Load the image and mask for this frame
+    image = io.imread(image_files[frame])
+    mask = io.imread(mask_files[frame])
+    
+    # Create a SpotCollection for this frame
+    spots = SpotCollection()
+    
+    # Loop over each cell mask and add a Spot to the SpotCollection
+    for i in range(1, np.max(mask) + 1):
+        # Extract the binary mask for this cell
+        cell_mask = mask == i
+        
+        # Calculate the centroid of the cell
+        y, x = np.mean(np.nonzero(cell_mask), axis=1)
+        
+        # Add a Spot to the SpotCollection with the centroid coordinates and intensity
+        spot = Spot(x, y, 0, 10, np.sum(image[cell_mask]))
+        spots.add(spot)
+    
+    # Add the SpotCollection to the model for this frame
+    model.addSpots(spots, frame)
+    
+# Run TrackMate on the model
+TrackMate(model, settings, logger).process()
+    
+# Retrieve the tracks and output the results
+tracks = model.getTrackModel().trackIDs(True)
+for track in tracks:
+    track_spots = model.getTrackModel().trackSpots(track)
+    track_duration = model.getTrackModel().trackDuration(track)
+    print(f"Track {track}: {len(track_spots)} spots over {track_duration} frames")
