@@ -48,7 +48,7 @@ class File:
 
 
 def get_experiment_directory_path(experiment_id):
-    return pathlib.Path(f'/home/elifast/Documents/Projects/CellTracker/experiments/{experiment_id}')
+    return pathlib.Path(f'/home/elifast/work/CellTracker/experiments/{experiment_id}')
 
 
 def get(exclude_completed=False):
