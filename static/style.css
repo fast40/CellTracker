@@ -26,11 +26,13 @@
     --status-1-color: rgb(255, 120, 0);
     --status-2-color: rgb(255, 200, 0);
     --status-3-color: rgb(0, 200, 0);
+    --status--1-color: rgb(0, 0, 0);
 
     --status-0-message: "waiting in queue";
     --status-1-message: "detecting cells";
     --status-2-message: "tracking cells";
     --status-3-message: "done";
+    --status--1-message: "error";
 
     font-size: 0.75rem;
     font-weight: bold;
@@ -75,6 +77,15 @@
 
 .status-3::after {
     content: var(--status-3-message);
+}
+
+.status--1 {
+	color: var(--status--1-color);
+	border-color: var(--status--1-color);
+}
+
+.status--1::after {
+	content: var(--status--1-message);
 }
 
 

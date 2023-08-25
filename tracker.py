@@ -203,6 +203,11 @@ def process(experiment_id, csv_path, visualization_path):
     print('Loading images...')
     images = load_experiment_images(experiment_id)
 
+    if images[0].shape != images[1].shape:
+        experiments.set_status(experiment_id, -1)
+
+        return
+
     print('Detecting cells...')
     experiments.increment_status(experiment_id)
 

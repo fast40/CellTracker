@@ -51,10 +51,14 @@ def get_experiment_directory_path(experiment_id):
     return pathlib.Path(f'/home/elifast/work/CellTracker/experiments/{experiment_id}')
 
 
-def get(exclude_completed=False):
+def get(exclude_completed=False, exclude_errors=False):
     with Cursor() as cursor:
-        if exclude_completed:
+        if exclude_completed and exclude_errors:
+            query = 'SELECT * FROM experiments WHERE status < 3 AND status != -1'
+        elif exclude_completed:
             query = 'SELECT * FROM experiments WHERE status < 3'
+        elif exclude_errors:
+            query = 'SELECT * FROM experiments WHERE status != -1'
         else:
             query = 'SELECT * FROM experiments'
 

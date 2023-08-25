@@ -3,7 +3,7 @@ import tracker
 import time
 
 while True:
-    for experiment_id, _, _ in experiments.get(exclude_completed=True):
+    for experiment_id, _, _ in experiments.get(exclude_completed=True, exclude_errors=True):
         experiment_directory_path = experiments.get_experiment_directory_path(experiment_id)
 
         csv_path = experiment_directory_path / 'results.csv'
